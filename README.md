@@ -16,8 +16,12 @@ O sistema propõe armazenar informações sobre:
 
 ## Ferramentas
  
-### MySQL
+### [MySQL Workbench](https://dev.mysql.com/downloads/workbench/)
 
 - Para a definição e manipulação do Banco de Dados.
+
+### [BrModelo](http://www.sis4.com/brModelo/)
+
+- Para a criação do Modelo Entidade Relacionamento.
 
 ---
