@@ -24,4 +24,8 @@ O sistema propõe armazenar informações sobre:
 
 - Para a criação do Modelo Entidade Relacionamento.
 
+### [dbdiagram.io](https://dbdiagram.io/home)
+
+- Para a ciração do Modelo Relacional
+
 ---
