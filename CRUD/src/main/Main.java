@@ -9,40 +9,40 @@ import main.MainMenu;
 
 public class Main {
 
-    public static void main(String[] args) {
+	public static void main(String[] args) {
 
-	Connection con = null;
-	boolean successCon = false;
+		Connection con = null;
+		boolean successCon = false;
 
-	while (!successCon) {
-	    String user = JOptionPane.showInputDialog("Informe o usuário de acesso ao BD");
+		while (!successCon) {
+			String user = JOptionPane.showInputDialog("Informe o usuário de acesso ao BD");
 
-	    String senha = JOptionPane.showInputDialog("Informe a senha do usuário");
+			String senha = JOptionPane.showInputDialog("Informe a senha do usuário");
 
-	    ConnectionFactory.setUser(user);
-	    ConnectionFactory.setPassword(senha);
+			ConnectionFactory.setUser(user);
+			ConnectionFactory.setPassword(senha);
 
-	    con = ConnectionFactory.getConnection();
+			con = ConnectionFactory.getConnection();
 
-	    try {
-		if (con == null || con.isClosed()) {
-		    System.out.println("Erro ao criar conexão com o banco!");
-		} else {
-		    System.out.println("Conexão bem sucedida!");
-		    successCon = true;
+			try {
+				if (con == null || con.isClosed()) {
+					System.out.println("Erro ao criar conexão com o banco!");
+				} else {
+					System.out.println("Conexão bem sucedida!");
+					successCon = true;
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
-	    } catch (SQLException e) {
-		e.printStackTrace();
-	    }
+
+		javax.swing.SwingUtilities.invokeLater(new Runnable() {
+
+			@Override
+			public void run() {
+				MainMenu.criaJanela();
+			}
+		});
+
 	}
-
-	javax.swing.SwingUtilities.invokeLater(new Runnable() {
-
-	    @Override
-	    public void run() {
-		MainMenu.criaJanela();
-	    }
-	});
-
-    }
 }
