@@ -4,6 +4,8 @@ import model.bean.Usuario;
 import connection.ConnectionFactory;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -37,7 +39,8 @@ public class UsuarioDAO {
 			stmt.setDate(3, u.getData_nascimento());
 			stmt.setDate(4, u.getData_inicio());
 			stmt.setBlob(5, u.getFoto());
-			stmt.execute();
+			stmt.executeUpdate();
+			System.out.println("Usuário inserido com sucesso!");
 		} catch (SQLException ex) {
 			System.out.println("Erro na inserçãoo de usuário: " + ex.getMessage());
 		} finally {
@@ -82,7 +85,7 @@ public class UsuarioDAO {
 			stmt = con.prepareStatement("SELECT * FROM `usuario` WHERE `nome` LIKE '%" + nome + "%'");
 			rs = stmt.executeQuery();
 
-			if (rs.next()) {
+			while (rs.next()) {
 				Usuario u = new Usuario();
 				u.setMatricula(rs.getInt("matricula"));
 				u.setNome(rs.getString("nome"));
@@ -173,6 +176,8 @@ public class UsuarioDAO {
 				} catch (SQLException e1) {
 					e1.printStackTrace();
 				}
+			} else {
+				quitRequested = true;
 			}
 		}
 
@@ -211,8 +216,9 @@ public class UsuarioDAO {
 	public void MenuDeleta() {
 
 		String mat = JOptionPane.showInputDialog("Digite a matrícula a deletar");
-		deletaUsuario(Integer.parseInt(mat));
-
+		if (mat != null && mat.length() > 0) {
+			deletaUsuario(Integer.parseInt(mat));
+		}
 	}
 
 	public void MenuConsulta() {
@@ -226,12 +232,16 @@ public class UsuarioDAO {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (e.getActionCommand().equals("mat")) {
-					int matricula = Integer.parseInt(JOptionPane.showInputDialog("Digite a matrícula a consultar"));
-					Usuario u = buscaMatricula(matricula);
-					if (u != null) {
-						String format = "%-10s%-30s%-30s%-15s%-15s\n";
-						System.out.printf(format, "Matr", "Nome", "Endereço", "Nascimento", "Início");
-						u.Display();
+					String mat = JOptionPane.showInputDialog("Digite a matrícula a consultar");
+					if (mat != null && mat.length() > 0) {
+						int matricula = Integer.parseInt(mat);
+						Usuario u = buscaMatricula(matricula);
+
+						if (u != null) {
+							String format = "%-10s%-30s%-30s%-15s%-15s\n";
+							System.out.printf(format, "Matr", "Nome", "Endereço", "Nascimento", "Início");
+							u.Display();
+						}
 					}
 					frame.setVisible(false);
 					frame.dispose();
@@ -259,5 +269,10 @@ public class UsuarioDAO {
 		frame.add(b2, BorderLayout.PAGE_END);
 		frame.setVisible(true);
 		frame.pack();
+
+		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+		int x = (int) ((dim.getWidth() - frame.getWidth()) / 2);
+		int y = (int) ((dim.getHeight() - frame.getHeight()) / 2);
+		frame.setLocation(x, y);
 	}
 }

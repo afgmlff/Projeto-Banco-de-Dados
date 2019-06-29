@@ -1,5 +1,7 @@
 package main;
 
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -51,8 +53,13 @@ public class MainMenu extends JPanel implements ActionListener {
 		MainMenu menu = new MainMenu();
 		menu.setOpaque(true);
 		frame.setContentPane(menu);
-
 		frame.pack();
 		frame.setVisible(true);
+
+		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+		int x = (int) ((dim.getWidth() - frame.getWidth()) / 2);
+		int y = (int) ((dim.getHeight() - frame.getHeight()) / 2);
+		frame.setLocation(x, y);
+
 	}
 }

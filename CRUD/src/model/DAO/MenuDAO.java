@@ -1,5 +1,8 @@
 package model.DAO;
 
+import java.awt.Dimension;
+import java.awt.Toolkit;
+
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -34,9 +37,15 @@ public class MenuDAO extends JPanel {
 		MenuDAO menu = new MenuDAO();
 		menu.setOpaque(true);
 		frame.setContentPane(menu);
-
+		
 		frame.setVisible(true);
 		frame.pack();
+		
+		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+		int x = (int) ((dim.getWidth() - frame.getWidth()) / 2);
+		int y = (int) ((dim.getHeight() - frame.getHeight()) / 2);
+		frame.setLocation(x, y);
+
 
 		if (s != null && s.length() > 0) {
 			frame.setVisible(false);
