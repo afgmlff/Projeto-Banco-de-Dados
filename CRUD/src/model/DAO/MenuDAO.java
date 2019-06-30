@@ -31,6 +31,7 @@ public class MenuDAO extends JPanel implements ActionListener {
     private Funcionario_TelefoneDAO ftdao = new Funcionario_TelefoneDAO();
     private ManutencaoDAO mdao = new ManutencaoDAO();
     private EstagiarioDAO edao = new EstagiarioDAO();
+    private ProfessorDAO pdao = new ProfessorDAO();
 
     public MenuDAO(char op) {
 
@@ -149,7 +150,22 @@ public class MenuDAO extends JPanel implements ActionListener {
             } else if (tb.equals("Nutricionistas")) {
                 //
             } else if (tb.equals("Professores")) {
-                //
+                switch (op) {
+                    case MainMenu.CADASTRO:
+                        pdao.MenuInsere();
+                        break;
+    
+                    case MainMenu.CONSULTA:
+                        pdao.MenuConsulta();
+                        break;
+    
+                    case MainMenu.DELECAO:
+                        pdao.MenuDeleta();
+                        break;
+    
+                    default:
+                        break;
+                    }
             } else if (tb.equals("Especialidades de professores")) {
                 //
             } else if (tb.equals("Reparo de máquinas")) {
