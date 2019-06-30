@@ -32,6 +32,7 @@ public class MenuDAO extends JPanel implements ActionListener {
     private ManutencaoDAO mdao = new ManutencaoDAO();
     private EstagiarioDAO edao = new EstagiarioDAO();
     private ProfessorDAO pdao = new ProfessorDAO();
+    private Professor_EspecialidadeDAO pfdao = new Professor_EspecialidadeDAO();
 
     public MenuDAO(char op) {
 
@@ -39,9 +40,9 @@ public class MenuDAO extends JPanel implements ActionListener {
 
         String[] tabelas = { "Administração", "Consulta Fisiologista", "Consulta Nutricionista",
                 "Elaboração de Treinos", "Equipamentos", "Estagiários", "Supervisão de Estagiários", "Fisioterapeutas",
-                "Funcionários", "Telefones de funcionários", "Inscrição em modalidades", "Manutenção", "Modalidades ministradas",
-                "Nutricionistas", "Professores", "Especialidades de professores", "Reparo de máquinas", "Usuários",
-                "Telefones de usuários" };
+                "Funcionários", "Telefones de funcionários", "Inscrição em modalidades", "Manutenção",
+                "Modalidades ministradas", "Nutricionistas", "Professores", "Especialidades de professores",
+                "Reparo de máquinas", "Usuários", "Telefones de usuários" };
 
         lista_tabelas = new JComboBox<String>(tabelas);
         lista_tabelas.setActionCommand("selecao");
@@ -73,21 +74,21 @@ public class MenuDAO extends JPanel implements ActionListener {
                 //
             } else if (tb.equals("Estagiários")) {
                 switch (op) {
-                    case MainMenu.CADASTRO:
-                        edao.MenuInsere();
-                        break;
-    
-                    case MainMenu.CONSULTA:
-                        edao.MenuConsulta();
-                        break;
-    
-                    case MainMenu.DELECAO:
-                        edao.MenuDeleta();
-                        break;
-    
-                    default:
-                        break;
-                    }
+                case MainMenu.CADASTRO:
+                    edao.MenuInsere();
+                    break;
+
+                case MainMenu.CONSULTA:
+                    edao.MenuConsulta();
+                    break;
+
+                case MainMenu.DELECAO:
+                    edao.MenuDeleta();
+                    break;
+
+                default:
+                    break;
+                }
             } else if (tb.equals("Supervisão de Estagiários")) {
                 //
             } else if (tb.equals("Fisioterapeutas")) {
@@ -130,44 +131,59 @@ public class MenuDAO extends JPanel implements ActionListener {
                 //
             } else if (tb.equals("Manutenção")) {
                 switch (op) {
-                    case MainMenu.CADASTRO:
-                        mdao.MenuInsere();
-                        break;
-    
-                    case MainMenu.CONSULTA:
-                        mdao.MenuConsulta();
-                        break;
-    
-                    case MainMenu.DELECAO:
-                        mdao.MenuDeleta();
-                        break;
-    
-                    default:
-                        break;
-                    }
+                case MainMenu.CADASTRO:
+                    mdao.MenuInsere();
+                    break;
+
+                case MainMenu.CONSULTA:
+                    mdao.MenuConsulta();
+                    break;
+
+                case MainMenu.DELECAO:
+                    mdao.MenuDeleta();
+                    break;
+
+                default:
+                    break;
+                }
             } else if (tb.equals("Modalidades ministradas")) {
                 //
             } else if (tb.equals("Nutricionistas")) {
                 //
             } else if (tb.equals("Professores")) {
                 switch (op) {
-                    case MainMenu.CADASTRO:
-                        pdao.MenuInsere();
-                        break;
-    
-                    case MainMenu.CONSULTA:
-                        pdao.MenuConsulta();
-                        break;
-    
-                    case MainMenu.DELECAO:
-                        pdao.MenuDeleta();
-                        break;
-    
-                    default:
-                        break;
-                    }
+                case MainMenu.CADASTRO:
+                    pdao.MenuInsere();
+                    break;
+
+                case MainMenu.CONSULTA:
+                    pdao.MenuConsulta();
+                    break;
+
+                case MainMenu.DELECAO:
+                    pdao.MenuDeleta();
+                    break;
+
+                default:
+                    break;
+                }
             } else if (tb.equals("Especialidades de professores")) {
-                //
+                switch (op) {
+                case MainMenu.CADASTRO:
+                    pfdao.MenuInsere();
+                    break;
+
+                case MainMenu.CONSULTA:
+                    pfdao.MenuConsulta();
+                    break;
+
+                case MainMenu.DELECAO:
+                    pfdao.MenuDeleta();
+                    break;
+
+                default:
+                    break;
+                }
             } else if (tb.equals("Reparo de máquinas")) {
                 //
             } else if (tb.equals("Usuários")) {
