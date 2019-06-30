@@ -17,25 +17,25 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 import connection.ConnectionFactory;
-import model.bean.Nutricionista;
+import model.bean.Fisioterapeuta;
 
 /**
- * NutricionistaDAO
+ * FisioterapeutaDAO
  */
-public class NutricionistaDAO {
+public class FisioterapeutaDAO {
 
     
-    public void insereNutricionista(Nutricionista nutri) {
+    public void insereFisioterapeuta(Fisioterapeuta fisio) {
 
         Connection con = ConnectionFactory.getConnection();
         PreparedStatement stmt = null;
 
         try {
-            stmt = con.prepareStatement("INSERT INTO `nutricionista`(`codigo_funcionario`, `CFN`) VALUES(?, ?)");
-            stmt.setInt(1, nutri.getCodigo_funcionario());
-            stmt.setInt(2, nutri.getCFN());
+            stmt = con.prepareStatement("INSERT INTO `fisioterapeuta`(`codigo_funcionario`, `CREFITO`) VALUES(?, ?)");
+            stmt.setInt(1, fisio.getCodigo_funcionario());
+            stmt.setInt(2, fisio.getCREFITO());
             stmt.executeUpdate();
-            System.out.println("Nutricionista inserido com sucesso!");
+            System.out.println("Fisioterapeuta inserido com sucesso!");
         } catch (SQLException ex) {
             ex.printStackTrace();
         } finally {
@@ -43,20 +43,20 @@ public class NutricionistaDAO {
         }
     }
 
-    public Nutricionista buscaRegistro(int reg) {
+    public Fisioterapeuta buscaRegistro(int reg) {
         Connection con = ConnectionFactory.getConnection();
         ResultSet rs = null;
         PreparedStatement stmt = null;
-        Nutricionista nutri = null;
+        Fisioterapeuta nutri = null;
 
         try {
-            stmt = con.prepareStatement("SELECT * FROM `nutricionista` WHERE `codigo_funcionario` = " + reg);
+            stmt = con.prepareStatement("SELECT * FROM `fisioterapeuta` WHERE `codigo_funcionario` = " + reg);
             rs = stmt.executeQuery();
 
             if (rs.next()) {
-                nutri = new Nutricionista();
+                nutri = new Fisioterapeuta();
                 nutri.setCodigo_funcionario(rs.getInt("codigo_funcionario"));
-                nutri.setCFN(rs.getInt("CFN"));
+                nutri.setCREFITO(rs.getInt("CREFITO"));
             }
 
         } catch (SQLException ex) {
@@ -68,26 +68,26 @@ public class NutricionistaDAO {
         return nutri;
     }
 
-    public List<Nutricionista> buscaTodos() {
+    public List<Fisioterapeuta> buscaTodos() {
         Connection con = ConnectionFactory.getConnection();
         ResultSet rs = null;
         PreparedStatement stmt = null;
-        List<Nutricionista> nutris = new ArrayList<>();
+        List<Fisioterapeuta> nutris = new ArrayList<>();
 
         try {
-            stmt = con.prepareStatement("SELECT * FROM `nutricionista`");
+            stmt = con.prepareStatement("SELECT * FROM `fisioterapeuta`");
             rs = stmt.executeQuery();
 
             while (rs.next()) {
-                Nutricionista nutri = new Nutricionista();
-                nutri = new Nutricionista();
+                Fisioterapeuta nutri = new Fisioterapeuta();
+                nutri = new Fisioterapeuta();
                 nutri.setCodigo_funcionario(rs.getInt("codigo_funcionario"));
-                nutri.setCFN(rs.getInt("CFN"));
+                nutri.setCREFITO(rs.getInt("CREFITO"));
                 nutris.add(nutri);
             }
 
         } catch (SQLException ex) {
-            System.out.println("Erro buscando nutricionistas: " + ex.getMessage());
+            System.out.println("Erro buscando fisioterapeutas: " + ex.getMessage());
         } finally {
             ConnectionFactory.closeConnection(con, stmt, rs);
         }
@@ -95,13 +95,13 @@ public class NutricionistaDAO {
         return nutris;
     }
 
-    public int deletaNutricionista(int reg) {
+    public int deletaFisioterapeuta(int reg) {
         Connection con = ConnectionFactory.getConnection();
         PreparedStatement stmt = null;
         int success = 0;
 
         try {
-            stmt = con.prepareStatement("DELETE FROM `nutricionista` WHERE `codigo_funcionario` = " + reg);
+            stmt = con.prepareStatement("DELETE FROM `fisioterapeuta` WHERE `codigo_funcionario` = " + reg);
             stmt.executeUpdate();
             success = 1;
             System.out.println("Funcionário deletado com sucesso!");
@@ -117,7 +117,7 @@ public class NutricionistaDAO {
 
     public void MenuInsere() {
 
-        Nutricionista nutri = new Nutricionista();
+        Fisioterapeuta nutri = new Fisioterapeuta();
         boolean quitRequested = false;
 
         if (!quitRequested) {
@@ -130,16 +130,16 @@ public class NutricionistaDAO {
         }
 
         if (!quitRequested) {
-            String cfn = JOptionPane.showInputDialog("Digite o CFN do(a) nutricionista");
+            String cfn = JOptionPane.showInputDialog("Digite o CREFITO do(a) fisioterapeuta");
             if (cfn == null || cfn.length() == 0) {
                 quitRequested = true;
             } else {
-                nutri.setCFN(Integer.parseInt(cfn));
+                nutri.setCREFITO(Integer.parseInt(cfn));
             }
         }
 
         if (!quitRequested) {
-            insereNutricionista(nutri);
+            insereFisioterapeuta(nutri);
         }
     }
 
@@ -147,7 +147,7 @@ public class NutricionistaDAO {
 
         String reg = JOptionPane.showInputDialog("Digite o registro do funcionário a deletar");
         if (reg != null && reg.length() > 0) {
-            deletaNutricionista(Integer.parseInt(reg));
+            deletaFisioterapeuta(Integer.parseInt(reg));
         }
     }
 
@@ -166,14 +166,14 @@ public class NutricionistaDAO {
                     String reg = JOptionPane.showInputDialog("Digite o registro a consultar");
                     if (reg != null && reg.length() > 0) {
                         int registro = Integer.parseInt(reg);
-                        Nutricionista f = buscaRegistro(registro);
+                        Fisioterapeuta f = buscaRegistro(registro);
 
                         if (f != null) {
                             String format = "%-15s%-15s\n";
-                            System.out.printf(format, "Registro", "CFN");
+                            System.out.printf(format, "Registro", "CREFITO");
                             f.Display();
                         } else {
-                            System.out.println("Nenhum nutricionista encontrado");
+                            System.out.println("Nenhum fisioterapeuta encontrado");
                         }
                     }
                     frame.setVisible(false);
@@ -189,15 +189,15 @@ public class NutricionistaDAO {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (e.getActionCommand().equals("tudo")) {
-                    List<Nutricionista> resultado = buscaTodos();
+                    List<Fisioterapeuta> resultado = buscaTodos();
                     if (resultado != null && resultado.size() > 0) {
                         String format = "%-15s%-15s\n";
-                        System.out.printf(format, "Registro", "CFN");
+                        System.out.printf(format, "Registro", "CREFITO");
                         for (int i = 0; i < resultado.size(); i++) {
                             resultado.get(i).Display();
                         }
                     } else {
-                        System.out.println("Nenhum nutricionista encontrado");
+                        System.out.println("Nenhum fisioterapeuta encontrado");
                     }
                     frame.setVisible(false);
                     frame.dispose();
