@@ -20,12 +20,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.sql.rowset.serial.SerialBlob;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 
 public class UsuarioDAO {
 	String s = null;
+	private byte[] imgbytes = null;
 
 	public void insereUsuario(Usuario u) {
 		Connection con = ConnectionFactory.getConnection();
@@ -242,6 +246,19 @@ public class UsuarioDAO {
 							String format = "%-10s%-30s%-30s%-15s%-15s\n";
 							System.out.printf(format, "Matr", "Nome", "Endereço", "Nascimento", "Início");
 							u.Display();
+							try {
+								imgbytes = u.getFoto().getBytes(1, (int) u.getFoto().length());
+								JFrame f = new JFrame("Foto");
+								JPanel panel = new JPanel();
+								JLabel l = new JLabel(new ImageIcon(imgbytes));
+								panel.add(l);
+								f.add(panel);
+								f.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+								f.pack();
+								f.setVisible(true);
+							} catch (SQLException ex) {
+								ex.printStackTrace();
+							}
 						}
 					}
 					frame.setVisible(false);

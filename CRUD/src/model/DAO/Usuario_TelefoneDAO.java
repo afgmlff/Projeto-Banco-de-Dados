@@ -161,7 +161,7 @@ public class Usuario_TelefoneDAO {
 
                         if (lista != null && lista.size() > 0) {
                             String format = "%-10s%-10s\n";
-                            System.out.printf(format, "Matricula", "Telefone");
+                            System.out.printf(format, "Matrícula", "Telefone");
                             for (int i = 0; i < lista.size(); i++) {
                                 lista.get(i).Display();
                             }
@@ -185,7 +185,7 @@ public class Usuario_TelefoneDAO {
                         List<Usuario_Telefone> resultado = buscaTelefone(Integer.parseInt(tel));
                         if (resultado != null && resultado.size() > 0) {
                             String format = "%-10s%-10s\n";
-                            System.out.printf(format, "Matricula", "Telefone");
+                            System.out.printf(format, "Matrícula", "Telefone");
                             for (int i = 0; i < resultado.size(); i++) {
                                 resultado.get(i).Display();
                             }

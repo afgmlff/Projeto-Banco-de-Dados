@@ -20,7 +20,8 @@ public class MenuFoto extends JPanel {
 
 	public MenuFoto() {
 		jfc = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
-		FileNameExtensionFilter filter = new FileNameExtensionFilter("Imagens jpg", "jpg", "jpeg", "JPG", "JPEG");
+		FileNameExtensionFilter filter = new FileNameExtensionFilter("Imagens", "jpg", "jpeg", "JPG", "JPEG", "png",
+				"PNG", "gif", "GIF");
 		jfc.setFileFilter(filter);
 		jfc.setDialogTitle("Selecione a foto do usuário");
 
