@@ -17,25 +17,26 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 import connection.ConnectionFactory;
-import model.bean.Manutencao;
+import model.bean.Estagiario;
 
 /**
- * ManutencaoDAO
+ * EstagiarioDAO
  */
-public class ManutencaoDAO {
+public class EstagiarioDAO {
 
     
-    public void insereManutencao(Manutencao man) {
+    public void insereEstagiario(Estagiario est) {
 
         Connection con = ConnectionFactory.getConnection();
         PreparedStatement stmt = null;
 
         try {
-            stmt = con.prepareStatement("INSERT INTO `manutencao`(`codigo_funcionario`, `area`) VALUES(?, ?)");
-            stmt.setInt(1, man.getCodigo_funcionario());
-            stmt.setString(2, man.getArea());
+            stmt = con.prepareStatement("INSERT INTO `estagiario`(`codigo_funcionario`, `area`, `instituicao_de_ensino`) VALUES(?, ?, ?)");
+            stmt.setInt(1, est.getCodigo_funcionario());
+            stmt.setString(2, est.getArea());
+            stmt.setString(3, est.getInstituicao_ensino());
             stmt.executeUpdate();
-            System.out.println("Funcionário de manutenção inserido com sucesso!");
+            System.out.println("Estagiário inserido com sucesso!");
         } catch (SQLException ex) {
             ex.printStackTrace();
         } finally {
@@ -43,20 +44,21 @@ public class ManutencaoDAO {
         }
     }
 
-    public Manutencao buscaRegistro(int reg) {
+    public Estagiario buscaRegistro(int reg) {
         Connection con = ConnectionFactory.getConnection();
         ResultSet rs = null;
         PreparedStatement stmt = null;
-        Manutencao man = null;
+        Estagiario est = null;
 
         try {
-            stmt = con.prepareStatement("SELECT * FROM `manutencao` WHERE `codigo_funcionario` = " + reg);
+            stmt = con.prepareStatement("SELECT * FROM `estagiario` WHERE `codigo_funcionario` = " + reg);
             rs = stmt.executeQuery();
 
             if (rs.next()) {
-                man = new Manutencao();
-                man.setCodigo_funcionario(rs.getInt("codigo_funcionario"));
-                man.setArea(rs.getString("area"));
+                est = new Estagiario();
+                est.setCodigo_funcionario(rs.getInt("codigo_funcionario"));
+                est.setArea(rs.getString("area"));
+                est.setInstituicao_ensino(rs.getString("instituicao_de_ensino"));
             }
 
         } catch (SQLException ex) {
@@ -65,46 +67,47 @@ public class ManutencaoDAO {
             ConnectionFactory.closeConnection(con, stmt, rs);
         }
 
-        return man;
+        return est;
     }
 
-    public List<Manutencao> buscaTodos() {
+    public List<Estagiario> buscaTodos() {
         Connection con = ConnectionFactory.getConnection();
         ResultSet rs = null;
         PreparedStatement stmt = null;
-        List<Manutencao> funcs_manu = new ArrayList<>();
+        List<Estagiario> estagiarios = new ArrayList<>();
 
         try {
-            stmt = con.prepareStatement("SELECT * FROM `manutencao`");
+            stmt = con.prepareStatement("SELECT * FROM `estagiario`");
             rs = stmt.executeQuery();
 
             while (rs.next()) {
-                Manutencao man = new Manutencao();
-                man = new Manutencao();
-                man.setCodigo_funcionario(rs.getInt("codigo_funcionario"));
-                man.setArea(rs.getString("area"));
-                funcs_manu.add(man);
+                Estagiario est = new Estagiario();
+                est = new Estagiario();
+                est.setCodigo_funcionario(rs.getInt("codigo_funcionario"));
+                est.setArea(rs.getString("area"));
+                est.setInstituicao_ensino(rs.getString("instituicao_de_ensino"));
+                estagiarios.add(est);
             }
 
         } catch (SQLException ex) {
-            System.out.println("Erro buscando funcionários de manutenção: " + ex.getMessage());
+            System.out.println("Erro buscando estagiários: " + ex.getMessage());
         } finally {
             ConnectionFactory.closeConnection(con, stmt, rs);
         }
 
-        return funcs_manu;
+        return estagiarios;
     }
 
-    public int deletaManutencao(int reg) {
+    public int deletaEstagiario(int reg) {
         Connection con = ConnectionFactory.getConnection();
         PreparedStatement stmt = null;
         int success = 0;
 
         try {
-            stmt = con.prepareStatement("DELETE FROM `manutencao` WHERE `codigo_funcionario` = " + reg);
+            stmt = con.prepareStatement("DELETE FROM `estagiario` WHERE `codigo_funcionario` = " + reg);
             stmt.executeUpdate();
             success = 1;
-            System.out.println("Funcionário deletado com sucesso!");
+            System.out.println("Estagiário deletado com sucesso!");
         } catch (SQLException ex) {
             System.out.println("Erro ao deletar funcionário: " + ex.getMessage());
             success = 0;
@@ -117,7 +120,7 @@ public class ManutencaoDAO {
 
     public void MenuInsere() {
 
-        Manutencao man = new Manutencao();
+        Estagiario man = new Estagiario();
         boolean quitRequested = false;
 
         if (!quitRequested) {
@@ -130,7 +133,7 @@ public class ManutencaoDAO {
         }
 
         if (!quitRequested) {
-            String area = JOptionPane.showInputDialog("Digite a área do funcionário");
+            String area = JOptionPane.showInputDialog("Digite a área do estagiário");
             if (area == null || area.length() == 0) {
                 quitRequested = true;
             } else {
@@ -139,7 +142,16 @@ public class ManutencaoDAO {
         }
 
         if (!quitRequested) {
-            insereManutencao(man);
+            String instituicao = JOptionPane.showInputDialog("Digite a instituição de ensino do estagiário");
+            if (instituicao == null || instituicao.length() == 0) {
+                quitRequested = true;
+            } else {
+                man.setInstituicao_ensino(instituicao);
+            }
+        }
+
+        if (!quitRequested) {
+            insereEstagiario(man);
         }
     }
 
@@ -147,7 +159,7 @@ public class ManutencaoDAO {
 
         String reg = JOptionPane.showInputDialog("Digite o registro do funcionário a deletar");
         if (reg != null && reg.length() > 0) {
-            deletaManutencao(Integer.parseInt(reg));
+            deletaEstagiario(Integer.parseInt(reg));
         }
     }
 
@@ -166,14 +178,14 @@ public class ManutencaoDAO {
                     String reg = JOptionPane.showInputDialog("Digite o registro a consultar");
                     if (reg != null && reg.length() > 0) {
                         int registro = Integer.parseInt(reg);
-                        Manutencao f = buscaRegistro(registro);
+                        Estagiario est = buscaRegistro(registro);
 
-                        if (f != null) {
-                            String format = "%-10s%-40s\n";
-                            System.out.printf(format, "Registro", "Área");
-                            f.Display();
+                        if (est != null) {
+                            String format = "%-10s%-40s%-40s\n";
+                            System.out.printf(format, "Registro", "Área", "Intituição de Ensino");
+                            est.Display();
                         } else {
-                            System.out.println("Nenhum funcionário encontrado");
+                            System.out.println("Nenhum estagiário encontrado");
                         }
                     }
                     frame.setVisible(false);
@@ -189,15 +201,15 @@ public class ManutencaoDAO {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (e.getActionCommand().equals("tudo")) {
-                    List<Manutencao> resultado = buscaTodos();
+                    List<Estagiario> resultado = buscaTodos();
                     if (resultado != null && resultado.size() > 0) {
-                        String format = "%-10s%-40s\n";
-                        System.out.printf(format, "Registro", "Área");
+                        String format = "%-10s%-40s%-40s\n";
+                        System.out.printf(format, "Registro", "Área", "Intituição de Ensino");
                         for (int i = 0; i < resultado.size(); i++) {
                             resultado.get(i).Display();
                         }
                     } else {
-                        System.out.println("Nenhum funcionário encontrado");
+                        System.out.println("Nenhum estagiário encontrado");
                     }
                     frame.setVisible(false);
                     frame.dispose();

@@ -101,7 +101,7 @@ public class UsuarioDAO {
 			}
 
 		} catch (SQLException ex) {
-			System.out.println("Erro buscando matrícula: " + ex.getMessage());
+			System.out.println("Erro buscando nome: " + ex.getMessage());
 		} finally {
 			ConnectionFactory.closeConnection(con, stmt, rs);
 		}
