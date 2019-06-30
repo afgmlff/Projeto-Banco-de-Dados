@@ -101,7 +101,7 @@ public class UsuarioDAO {
 			}
 
 		} catch (SQLException ex) {
-			System.out.println("Erro buscando matricula: " + ex.getMessage());
+			System.out.println("Erro buscando matrícula: " + ex.getMessage());
 		} finally {
 			ConnectionFactory.closeConnection(con, stmt, rs);
 		}
@@ -112,20 +112,21 @@ public class UsuarioDAO {
 	public int deletaUsuario(int matricula) {
 		Connection con = ConnectionFactory.getConnection();
 		PreparedStatement stmt = null;
-		boolean success = false;
+		int success = 0;
 
 		try {
 			stmt = con.prepareStatement("DELETE FROM `usuario` WHERE `matricula` = " + matricula);
 			stmt.executeUpdate();
-			success = true;
+			success = 1;
+			System.out.println("Usuário deletado com sucesso!");
 		} catch (SQLException ex) {
 			System.out.println("Erro ao deletar usuario: " + ex.getMessage());
-			success = false;
+			success = 0;
 		} finally {
 			ConnectionFactory.closeConnection(con, stmt);
 		}
 
-		return (success ? 1 : 0);
+		return success;
 	}
 
 	public void MenuInsere() {
@@ -259,6 +260,8 @@ public class UsuarioDAO {
 							} catch (SQLException ex) {
 								ex.printStackTrace();
 							}
+						} else {
+							System.out.println("Nenhum usuário encontrado");
 						}
 					}
 					frame.setVisible(false);
@@ -282,6 +285,8 @@ public class UsuarioDAO {
 						for (int i = 0; i < resultado.size(); i++) {
 							resultado.get(i).Display();
 						}
+					} else {
+						System.out.println("Nenhum usuário encontrado");
 					}
 					frame.setVisible(false);
 					frame.dispose();

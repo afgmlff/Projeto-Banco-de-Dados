@@ -18,18 +18,19 @@ import javax.swing.JOptionPane;
 import java.util.ArrayList;
 
 import connection.ConnectionFactory;
-import model.bean.Usuario_Telefone;
+import model.bean.Funcionario_Telefone;
 
-public class Usuario_TelefoneDAO {
+public class Funcionario_TelefoneDAO {
 
-    public void insereTelefone(Usuario_Telefone u_tel) {
+    public void insereTelefone(Funcionario_Telefone f_tel) {
         Connection con = ConnectionFactory.getConnection();
         PreparedStatement stmt = null;
 
         try {
-            stmt = con.prepareStatement("INSERT INTO `usuario_telefone`(`usuario`, `telefone`) VALUES (?, ?)");
-            stmt.setInt(1, u_tel.getUsuario());
-            stmt.setInt(2, u_tel.getTelefone());
+            stmt = con.prepareStatement(
+                    "INSERT INTO `funcionario_telefone`(`codigo_funcionario`, `telefone`) VALUES (?, ?)");
+            stmt.setInt(1, f_tel.getCodigo_funcionario());
+            stmt.setInt(2, f_tel.getTelefone());
             stmt.executeUpdate();
             System.out.println("Telefone inserido com sucesso!");
         } catch (SQLException ex) {
@@ -39,20 +40,20 @@ public class Usuario_TelefoneDAO {
         }
     }
 
-    public List<Usuario_Telefone> buscaTelefone(int telefone) {
+    public List<Funcionario_Telefone> buscaTelefone(int telefone) {
         Connection con = ConnectionFactory.getConnection();
         ResultSet rs = null;
         PreparedStatement stmt = null;
-        List<Usuario_Telefone> telefones = new ArrayList<>();
+        List<Funcionario_Telefone> telefones = new ArrayList<>();
 
         try {
-            stmt = con.prepareStatement("SELECT * FROM `usuario_telefone` WHERE `telefone` = " + telefone);
+            stmt = con.prepareStatement("SELECT * FROM `Funcionario_Telefone` WHERE `telefone` = " + telefone);
             rs = stmt.executeQuery();
 
             while (rs.next()) {
-                Usuario_Telefone u_tel = new Usuario_Telefone();
+                Funcionario_Telefone u_tel = new Funcionario_Telefone();
                 u_tel.setTelefone(rs.getInt("telefone"));
-                u_tel.setusuario(rs.getInt("usuario"));
+                u_tel.setCodigo_funcionario(rs.getInt("codigo_funcionario"));
                 telefones.add(u_tel);
             }
 
@@ -65,25 +66,25 @@ public class Usuario_TelefoneDAO {
         return telefones;
     }
 
-    public List<Usuario_Telefone> buscaMatricula(int matricula) {
+    public List<Funcionario_Telefone> buscaCodigo(int codigo) {
         Connection con = ConnectionFactory.getConnection();
         ResultSet rs = null;
         PreparedStatement stmt = null;
-        List<Usuario_Telefone> telefones = new ArrayList<>();
+        List<Funcionario_Telefone> telefones = new ArrayList<>();
 
         try {
-            stmt = con.prepareStatement("SELECT * FROM `usuario_telefone` WHERE `usuario` = " + matricula);
+            stmt = con.prepareStatement("SELECT * FROM `funcionario_telefone` WHERE `codigo_funcionario` = " + codigo);
             rs = stmt.executeQuery();
 
             while (rs.next()) {
-                Usuario_Telefone u_tel = new Usuario_Telefone();
+                Funcionario_Telefone u_tel = new Funcionario_Telefone();
                 u_tel.setTelefone(rs.getInt("telefone"));
-                u_tel.setusuario(rs.getInt("usuario"));
+                u_tel.setCodigo_funcionario(rs.getInt("codigo_funcionario"));
                 telefones.add(u_tel);
             }
 
         } catch (SQLException ex) {
-            System.out.println("Erro buscando matrícula: " + ex.getMessage());
+            System.out.println("Erro buscando código de funcionário: " + ex.getMessage());
         } finally {
             ConnectionFactory.closeConnection(con, stmt, rs);
         }
@@ -96,7 +97,7 @@ public class Usuario_TelefoneDAO {
         PreparedStatement stmt = null;
 
         try {
-            stmt = con.prepareStatement("DELETE FROM `usuario_telefone` WHERE `telefone` = " + telefone);
+            stmt = con.prepareStatement("DELETE FROM `funcionario_telefone` WHERE `telefone` = " + telefone);
             System.out.println("Telefone deletado com sucesso!");
         } catch (SQLException ex) {
             System.out.println("Erro na deleção de telefone: " + ex.getMessage());
@@ -107,20 +108,20 @@ public class Usuario_TelefoneDAO {
 
     public void MenuInsere() {
 
-        Usuario_Telefone u_tel = new Usuario_Telefone();
+        Funcionario_Telefone u_tel = new Funcionario_Telefone();
         boolean quitRequested = false;
 
         if (!quitRequested) {
-            String usuario = JOptionPane.showInputDialog("Insira a matrícula do usuário");
-            if (usuario == null || usuario.length() == 0) {
+            String codigo_funcionario = JOptionPane.showInputDialog("Insira a matrícula do funcionário");
+            if (codigo_funcionario == null || codigo_funcionario.length() == 0) {
                 quitRequested = true;
             } else {
-                u_tel.setusuario(Integer.parseInt(usuario));
+                u_tel.setCodigo_funcionario(Integer.parseInt(codigo_funcionario));
             }
         }
 
         if (!quitRequested) {
-            String telefone = JOptionPane.showInputDialog("Insira o telefone do usuário");
+            String telefone = JOptionPane.showInputDialog("Insira o telefone do funcionário");
             if (telefone == null || telefone.length() == 0) {
                 quitRequested = true;
             } else {
@@ -146,18 +147,18 @@ public class Usuario_TelefoneDAO {
         JFrame frame = new JFrame("Escolha o tipo de consulta");
         frame.setBounds(300, 300, 200, 100);
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        JButton b1 = new JButton("Matrícula");
-        b1.setActionCommand("mat");
-        b1.setMnemonic('M');
+        JButton b1 = new JButton("Código");
+        b1.setActionCommand("cod");
+        b1.setMnemonic('C');
         b1.addActionListener(new ActionListener() {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (e.getActionCommand().equals("mat")) {
-                    String mat = JOptionPane.showInputDialog("Digite a matrícula a consultar");
-                    if (mat != null && mat.length() > 0) {
-                        int matricula = Integer.parseInt(mat);
-                        List<Usuario_Telefone> lista = buscaMatricula(matricula);
+                if (e.getActionCommand().equals("cod")) {
+                    String cod = JOptionPane.showInputDialog("Digite o código de funcionário a consultar");
+                    if (cod != null && cod.length() > 0) {
+                        int codigo = Integer.parseInt(cod);
+                        List<Funcionario_Telefone> lista = buscaCodigo(codigo);
 
                         if (lista != null && lista.size() > 0) {
                             String format = "%-10s%-10s\n";
@@ -166,7 +167,7 @@ public class Usuario_TelefoneDAO {
                                 lista.get(i).Display();
                             }
                         } else {
-                            System.out.println("Nenhum telefone encontrado para a matrícula");
+                            System.out.println("Nenhum telefone encontrado para o registro");
                         }
                     }
                     frame.setVisible(false);
@@ -184,7 +185,7 @@ public class Usuario_TelefoneDAO {
                 if (e.getActionCommand().equals("tel")) {
                     String tel = JOptionPane.showInputDialog("Digite o telefone a buscar");
                     if (tel != null && tel.length() > 0) {
-                        List<Usuario_Telefone> resultado = buscaTelefone(Integer.parseInt(tel));
+                        List<Funcionario_Telefone> resultado = buscaTelefone(Integer.parseInt(tel));
                         if (resultado != null && resultado.size() > 0) {
                             String format = "%-10s%-10s\n";
                             System.out.printf(format, "Matrícula", "Telefone");

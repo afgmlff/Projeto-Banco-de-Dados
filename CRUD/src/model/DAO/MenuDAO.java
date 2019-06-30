@@ -11,6 +11,7 @@ import javax.swing.JComboBox;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JRootPane;
 
 import main.MainMenu;
 
@@ -22,11 +23,12 @@ public class MenuDAO extends JPanel implements ActionListener {
     private static final long serialVersionUID = 1L;
 
     private JComboBox<String> lista_tabelas;
-    private JButton b1;
+    private static JButton b1;
     private char op;
     private UsuarioDAO udao = new UsuarioDAO();
     private Usuario_TelefoneDAO utdao = new Usuario_TelefoneDAO();
     private FuncionarioDAO fdao = new FuncionarioDAO();
+    private Funcionario_TelefoneDAO ftdao = new Funcionario_TelefoneDAO();
 
     public MenuDAO(char op) {
 
@@ -90,7 +92,22 @@ public class MenuDAO extends JPanel implements ActionListener {
                     break;
                 }
             } else if (tb.equals("Telefones de funcionários")) {
-                //
+                switch (op) {
+                case MainMenu.CADASTRO:
+                    ftdao.MenuInsere();
+                    break;
+
+                case MainMenu.CONSULTA:
+                    ftdao.MenuConsulta();
+                    break;
+
+                case MainMenu.DELECAO:
+                    ftdao.MenuDeleta();
+                    break;
+
+                default:
+                    break;
+                }
             } else if (tb.equals("Inscrição em modalidades")) {
                 //
             } else if (tb.equals("Modalidades ministradas")) {
@@ -167,6 +184,9 @@ public class MenuDAO extends JPanel implements ActionListener {
         JComponent comp = new MenuDAO(oper);
         comp.setOpaque(true);
         frame.setContentPane(comp);
+
+        JRootPane pane = frame.getRootPane();
+        pane.setDefaultButton(b1);
 
         frame.setVisible(true);
         frame.pack();

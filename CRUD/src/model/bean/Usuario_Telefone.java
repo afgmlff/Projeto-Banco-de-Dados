@@ -21,7 +21,7 @@ public class Usuario_Telefone {
         this.telefone = telefone;
     }
 
-    public void Display(){
+    public void Display() {
         String format = "%-10d%-10d\n";
         System.out.printf(format, usuario, telefone);
     }

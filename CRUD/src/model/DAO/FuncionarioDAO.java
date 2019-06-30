@@ -101,6 +101,7 @@ public class FuncionarioDAO {
             stmt = con.prepareStatement("DELETE FROM `funcionario` WHERE `registro_funcionario` = " + reg);
             stmt.executeUpdate();
             success = 1;
+            System.out.println("Funcionário deletado com sucesso!");
         } catch (SQLException ex) {
             System.out.println("Erro ao deletar funcionário: " + ex.getMessage());
             success = 0;
@@ -168,6 +169,8 @@ public class FuncionarioDAO {
                             String format = "%-10s%-30s%-30s\n";
                             System.out.printf(format, "Registro", "Nome", "Endereço");
                             f.Display();
+                        } else {
+                            System.out.println("Nenhum funcionário encontrado");
                         }
                     }
                     frame.setVisible(false);
@@ -191,6 +194,8 @@ public class FuncionarioDAO {
                         for (int i = 0; i < resultado.size(); i++) {
                             resultado.get(i).Display();
                         }
+                    } else {
+                        System.out.println("Nenhum funcionário encontrado");
                     }
                     frame.setVisible(false);
                     frame.dispose();
