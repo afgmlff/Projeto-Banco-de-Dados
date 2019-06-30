@@ -19,6 +19,11 @@ public class Main {
 
 			String senha = JOptionPane.showInputDialog("Informe a senha do usuário");
 
+			if ((user == null || user.length() == 0) && (senha == null || senha.length() == 0)) {
+				System.out.println("Saindo...");
+				return;
+			}
+
 			ConnectionFactory.setUser(user);
 			ConnectionFactory.setPassword(senha);
 

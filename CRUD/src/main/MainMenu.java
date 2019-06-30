@@ -4,6 +4,7 @@ import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -22,10 +23,13 @@ public class MainMenu extends JPanel implements ActionListener {
 	public MainMenu() {
 		b1 = new JButton("Cadastrar");
 		b1.setActionCommand("cadastro");
+		b1.setMnemonic(KeyEvent.VK_C);
 		b2 = new JButton("Consultar");
 		b2.setActionCommand("consulta");
+		b2.setMnemonic(KeyEvent.VK_O);
 		b3 = new JButton("Deletar");
 		b3.setActionCommand("delecao");
+		b3.setMnemonic(KeyEvent.VK_D);
 
 		b1.addActionListener(this);
 		b2.addActionListener(this);

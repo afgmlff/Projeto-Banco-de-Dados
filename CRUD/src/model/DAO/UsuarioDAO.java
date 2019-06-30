@@ -227,6 +227,7 @@ public class UsuarioDAO {
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		JButton b1 = new JButton("Matrícula");
 		b1.setActionCommand("mat");
+		b1.setMnemonic('M');
 		b1.addActionListener(new ActionListener() {
 
 			@Override
@@ -250,6 +251,7 @@ public class UsuarioDAO {
 		});
 		JButton b2 = new JButton("Nome");
 		b2.setActionCommand("nome");
+		b2.setMnemonic('N');
 		b2.addActionListener(new ActionListener() {
 
 			@Override
