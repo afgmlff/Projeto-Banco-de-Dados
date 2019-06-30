@@ -42,7 +42,7 @@ public class UsuarioDAO {
 			stmt.executeUpdate();
 			System.out.println("Usuário inserido com sucesso!");
 		} catch (SQLException ex) {
-			System.out.println("Erro na inserçãoo de usuário: " + ex.getMessage());
+			System.out.println("Erro na inserção de usuário: " + ex.getMessage());
 		} finally {
 			ConnectionFactory.closeConnection(con, stmt);
 		}
@@ -168,7 +168,7 @@ public class UsuarioDAO {
 		}
 
 		if (!quitRequested) {
-			s = MenuDAO.criaJanela();
+			s = MenuFoto.criaJanela();
 
 			if (s != null && s.length() > 0) {
 				try {
@@ -256,15 +256,19 @@ public class UsuarioDAO {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				String nome = JOptionPane.showInputDialog("Digite o nome a buscar");
-				List<Usuario> resultado = buscaNome(nome);
-				String format = "%-10s%-30s%-30s%-15s%-15s\n";
-				System.out.printf(format, "Matr", "Nome", "Endereço", "Nascimento", "Inicio");
-				for (int i = 0; i < resultado.size(); i++) {
-					resultado.get(i).Display();
+				if (e.getActionCommand().equals("nome")) {
+					String nome = JOptionPane.showInputDialog("Digite o nome a buscar");
+					List<Usuario> resultado = buscaNome(nome);
+					if (resultado != null && resultado.size() > 0) {
+						String format = "%-10s%-30s%-30s%-15s%-15s\n";
+						System.out.printf(format, "Matr", "Nome", "Endereço", "Nascimento", "Início");
+						for (int i = 0; i < resultado.size(); i++) {
+							resultado.get(i).Display();
+						}
+					}
+					frame.setVisible(false);
+					frame.dispose();
 				}
-				frame.setVisible(false);
-				frame.dispose();
 			}
 		});
 		frame.add(b1, BorderLayout.PAGE_START);

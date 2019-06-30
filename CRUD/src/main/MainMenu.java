@@ -10,15 +10,14 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import model.DAO.UsuarioDAO;
+import model.DAO.MenuDAO;
 
 public class MainMenu extends JPanel implements ActionListener {
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 1L;
+	public static final char CADASTRO = 'k', CONSULTA = 'c', DELECAO = 'd';
 	protected JButton b1, b2, b3;
-	protected UsuarioDAO udao = new UsuarioDAO();
+	protected char op;
 
 	public MainMenu() {
 		b1 = new JButton("Cadastrar");
@@ -42,11 +41,11 @@ public class MainMenu extends JPanel implements ActionListener {
 
 	public void actionPerformed(ActionEvent e) {
 		if ("cadastro".equals(e.getActionCommand())) {
-			udao.MenuInsere();
+			MenuDAO.criaJanela(CADASTRO);
 		} else if ("consulta".equals(e.getActionCommand())) {
-			udao.MenuConsulta();
+			MenuDAO.criaJanela(CONSULTA);
 		} else if ("delecao".equals(e.getActionCommand())) {
-			udao.MenuDeleta();
+			MenuDAO.criaJanela(DELECAO);
 		}
 	}
 

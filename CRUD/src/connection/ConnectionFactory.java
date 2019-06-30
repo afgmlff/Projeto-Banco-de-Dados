@@ -10,7 +10,6 @@ import java.util.logging.Logger;
 
 public class ConnectionFactory {
 
-	// private static final String DRIVER = "com.mysql.jdbc.Driver";
 	private static final String URL = "jdbc:mysql://localhost:3307/academia";
 	private static String user = "";
 	private static String password = "";
@@ -26,7 +25,6 @@ public class ConnectionFactory {
 	public static Connection getConnection() {
 
 		try {
-			// Class.forName(DRIVER);
 			return DriverManager.getConnection(URL, user, password);
 		} catch (SQLException ex) {
 			ex.printStackTrace();
