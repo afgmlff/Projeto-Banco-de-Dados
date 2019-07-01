@@ -37,6 +37,7 @@ public class MenuDAO extends JPanel implements ActionListener {
     private FisioterapeutaDAO fisdao = new FisioterapeutaDAO();
     private AdministracaoDAO adao = new AdministracaoDAO();
     private EquipamentoDAO eqdao = new EquipamentoDAO();
+    private ReparoDAO rdao = new ReparoDAO();
 
     public MenuDAO(char op) {
 
@@ -249,7 +250,22 @@ public class MenuDAO extends JPanel implements ActionListener {
                     break;
                 }
             } else if (tb.equals("Reparo de máquinas")) {
-                //
+                switch (op) {
+                    case MainMenu.CADASTRO:
+                        rdao.MenuInsere();
+                        break;
+    
+                    case MainMenu.CONSULTA:
+                        rdao.MenuConsulta();
+                        break;
+    
+                    case MainMenu.DELECAO:
+                        rdao.MenuDeleta();
+                        break;
+    
+                    default:
+                        break;
+                    }
             } else if (tb.equals("Usuários")) {
                 switch (op) {
                 case MainMenu.CADASTRO:
