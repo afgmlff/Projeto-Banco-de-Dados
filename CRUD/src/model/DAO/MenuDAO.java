@@ -42,6 +42,7 @@ public class MenuDAO extends JPanel implements ActionListener {
     private Modalidades_MinistradasDAO mmdao = new Modalidades_MinistradasDAO();
     private Estagiario_Eh_SupervisionadoDAO eesdao = new Estagiario_Eh_SupervisionadoDAO();
     private InscricaoDAO idao = new InscricaoDAO();
+    private Consulta_NutriDAO cndao = new Consulta_NutriDAO();
 
     public MenuDAO(char op) {
 
@@ -91,7 +92,22 @@ public class MenuDAO extends JPanel implements ActionListener {
             } else if (tb.equals("Consulta Fisiologista")) {
                 //
             } else if (tb.equals("Consulta Nutricionista")) {
-                //
+                switch (op) {
+                case MainMenu.CADASTRO:
+                    cndao.MenuInsere();
+                    break;
+
+                case MainMenu.CONSULTA:
+                    cndao.MenuConsulta();
+                    break;
+
+                case MainMenu.DELECAO:
+                    cndao.MenuDeleta();
+                    break;
+
+                default:
+                    break;
+                }
             } else if (tb.equals("Elaboração de Treinos")) {
                 //
             } else if (tb.equals("Equipamentos")) {
