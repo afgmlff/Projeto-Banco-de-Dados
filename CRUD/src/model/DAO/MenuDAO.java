@@ -36,6 +36,7 @@ public class MenuDAO extends JPanel implements ActionListener {
     private NutricionistaDAO ndao = new NutricionistaDAO();
     private FisioterapeutaDAO fisdao = new FisioterapeutaDAO();
     private AdministracaoDAO adao = new AdministracaoDAO();
+    private EquipamentoDAO eqdao = new EquipamentoDAO();
 
     public MenuDAO(char op) {
 
@@ -89,7 +90,22 @@ public class MenuDAO extends JPanel implements ActionListener {
             } else if (tb.equals("Elaboração de Treinos")) {
                 //
             } else if (tb.equals("Equipamentos")) {
-                //
+                switch (op) {
+                case MainMenu.CADASTRO:
+                    eqdao.MenuInsere();
+                    break;
+
+                case MainMenu.CONSULTA:
+                    eqdao.MenuConsulta();
+                    break;
+
+                case MainMenu.DELECAO:
+                    eqdao.MenuDeleta();
+                    break;
+
+                default:
+                    break;
+                }
             } else if (tb.equals("Estagiários")) {
                 switch (op) {
                 case MainMenu.CADASTRO:

@@ -86,7 +86,7 @@ public class UsuarioDAO {
 		List<Usuario> usuarios = new ArrayList<>();
 
 		try {
-			stmt = con.prepareStatement("SELECT * FROM `usuario` WHERE `nome` LIKE '%" + nome + "%'");
+			stmt = con.prepareStatement("SELECT `matricula`, `nome`, `endereco`, `data_nascimento`, `data_inicio` FROM `usuario` WHERE `nome` LIKE '%" + nome + "%'");
 			rs = stmt.executeQuery();
 
 			while (rs.next()) {
@@ -96,7 +96,7 @@ public class UsuarioDAO {
 				u.setEndereco(rs.getString("endereco"));
 				u.setData_nascimento(rs.getDate("data_nascimento"));
 				u.setData_inicio(rs.getDate("data_inicio"));
-				u.setFoto(rs.getBlob("foto"));
+				u.setFoto(null);
 				usuarios.add(u);
 			}
 
