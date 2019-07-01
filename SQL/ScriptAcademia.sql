@@ -13,7 +13,7 @@ CREATE TABLE IF NOT EXISTS `Usuario` (
 ) ENGINE = InnoDB;
 
 CREATE TABLE IF NOT EXISTS `Usuario_Telefone` (
-    `usuario` INT,
+    `usuario` INT NOT NULL,
     `telefone` INT NOT NULL,
     PRIMARY KEY (`usuario` , `telefone`),
     CONSTRAINT FOREIGN KEY (`usuario`) REFERENCES `Usuario` (`matricula`) ON DELETE CASCADE
@@ -27,21 +27,21 @@ CREATE TABLE IF NOT EXISTS `Funcionario` (
 ) ENGINE = InnoDB;
 
 CREATE TABLE IF NOT EXISTS `Funcionario_Telefone` (
-    `codigo_funcionario` INT,
-    `telefone` INT,
+    `codigo_funcionario` INT NOT NULL,
+    `telefone` INT NOT NULL,
     PRIMARY KEY (`codigo_funcionario` , `telefone`),
     CONSTRAINT FOREIGN KEY (`codigo_funcionario`) REFERENCES `Funcionario` (`registro_funcionario`) ON DELETE CASCADE
 ) ENGINE = InnoDB;
 
 CREATE TABLE IF NOT EXISTS `Manutencao` (
-    `codigo_funcionario` INT,
-    `area` VARCHAR(255),
+    `codigo_funcionario` INT NOT NULL UNIQUE,
+    `area` VARCHAR(255) NOT NULL,
     PRIMARY KEY (`codigo_funcionario`),
     CONSTRAINT FOREIGN KEY (`codigo_funcionario`) REFERENCES `Funcionario` (`registro_funcionario`) ON DELETE CASCADE
 ) ENGINE = InnoDB;
 
 CREATE TABLE IF NOT EXISTS `Estagiario` (
-    `codigo_funcionario` INT,
+    `codigo_funcionario` INT NOT NULL UNIQUE,
     `area` VARCHAR(255) NOT NULL,
     `instituicao_de_ensino` VARCHAR(255) NOT NULL,
     PRIMARY KEY (`codigo_funcionario`),
@@ -49,36 +49,35 @@ CREATE TABLE IF NOT EXISTS `Estagiario` (
 ) ENGINE = InnoDB;
 
 CREATE TABLE IF NOT EXISTS `Professor` (
-    `codigo_funcionario` INT,
+    `codigo_funcionario` INT NOT NULL UNIQUE,
     PRIMARY KEY (`codigo_funcionario`),
     CONSTRAINT FOREIGN KEY (`codigo_funcionario`) REFERENCES `Funcionario` (`registro_funcionario`) ON DELETE CASCADE
 ) ENGINE = InnoDB;
 
 CREATE TABLE IF NOT EXISTS `Professor_Especialidade` (
-    `codigo_professor` INT,
-    `especialidade` VARCHAR(255),
+    `codigo_professor` INT NOT NULL,
+    `especialidade` VARCHAR(255) NOT NULL,
     PRIMARY KEY (`codigo_professor` , `especialidade`),
     CONSTRAINT FOREIGN KEY (`codigo_professor`) REFERENCES `Professor` (`codigo_funcionario`) ON DELETE CASCADE
 ) ENGINE = InnoDB;
 
 CREATE TABLE IF NOT EXISTS `Nutricionista` (
-    `codigo_funcionario` INT REFERENCES `Funcionario` (`registro_funcionario`)
-    ON DELETE CASCADE,
+    `codigo_funcionario` INT NOT NULL UNIQUE,
     `CFN` INT NOT NULL UNIQUE,
     PRIMARY KEY (`codigo_funcionario`),
 	CONSTRAINT FOREIGN KEY (`codigo_funcionario`) REFERENCES `Funcionario` (`registro_funcionario`) ON DELETE CASCADE
 ) ENGINE = InnoDB;
 
 CREATE TABLE IF NOT EXISTS `Fisioterapeuta` (
-    `codigo_funcionario` INT,
+    `codigo_funcionario` INT NOT NULL UNIQUE,
     `CREFITO` INT NOT NULL UNIQUE,
     PRIMARY KEY (`codigo_funcionario`),
     CONSTRAINT FOREIGN KEY (`codigo_funcionario`) REFERENCES `Funcionario` (`registro_funcionario`) ON DELETE CASCADE
 ) ENGINE = InnoDB;
 
 CREATE TABLE IF NOT EXISTS `Administracao` (
-    `codigo_funcionario` INT,
-    `area` VARCHAR(255),
+    `codigo_funcionario` INT  NOT NULL UNIQUE,
+    `area` VARCHAR(255) NOT NULL,
     PRIMARY KEY (`codigo_funcionario`),
     CONSTRAINT FOREIGN KEY(`codigo_funcionario`) REFERENCES `Funcionario` (`registro_funcionario`) ON DELETE CASCADE
 ) ENGINE = InnoDB;
@@ -91,10 +90,10 @@ CREATE TABLE IF NOT EXISTS `Equipamento` (
 ) ENGINE = InnoDB;
 
 CREATE TABLE IF NOT EXISTS `Reparo` (
-    `codigo_funcionario` INT,
-    `codigo_equipamento` INT,
+    `codigo_funcionario` INT NOT NULL,
+    `codigo_equipamento` INT NOT NULL,
     `descricao_reparo` VARCHAR(255) NOT NULL,
-    `data_reparo` DATETIME NOT NULL UNIQUE,
+    `data_reparo` DATETIME NOT NULL,
     PRIMARY KEY (`codigo_funcionario` , `codigo_equipamento` , `data_reparo`),
     CONSTRAINT FOREIGN KEY (`codigo_funcionario`) REFERENCES `Manutencao` (`codigo_funcionario`) ON DELETE CASCADE,
     CONSTRAINT FOREIGN KEY (`codigo_equipamento`) REFERENCES `Equipamento` (`codigo_equipamento`) ON DELETE CASCADE
@@ -110,32 +109,32 @@ CREATE TABLE IF NOT EXISTS `Modalidade` (
 ) ENGINE = InnoDB;
 
 CREATE TABLE IF NOT EXISTS `Modalidades_Ministradas` (
-    `codigo_professor` INT,
-    `codigo_modalidade` INT,
+    `codigo_professor` INT NOT NULL,
+    `codigo_modalidade` INT NOT NULL,
     PRIMARY KEY (`codigo_professor` , `codigo_modalidade`),
     CONSTRAINT FOREIGN KEY (`codigo_professor`) REFERENCES `Professor` (`codigo_funcionario`) ON DELETE CASCADE,
     CONSTRAINT FOREIGN KEY (`codigo_modalidade`)  REFERENCES `Modalidade` (`codigo_modalidade`) ON DELETE CASCADE
 ) ENGINE = InnoDB;
 
 CREATE TABLE IF NOT EXISTS `Estagiario_Eh_Supervisionado` (
-    `codigo_estagiario` INT,
-    `codigo_supervisor` INT,
+    `codigo_estagiario` INT NOT NULL UNIQUE,
+    `codigo_supervisor` INT NOT NULL,
     PRIMARY KEY (`codigo_estagiario` , `codigo_supervisor`),
     CONSTRAINT FOREIGN KEY (`codigo_estagiario`) REFERENCES `Estagiario` (`codigo_funcionario`) ON DELETE CASCADE,
     CONSTRAINT FOREIGN KEY (`codigo_supervisor`) REFERENCES `Funcionario` (`registro_funcionario`) ON DELETE CASCADE
 ) ENGINE = InnoDB;
 
 CREATE TABLE IF NOT EXISTS `Inscricao` (
-    `matricula_usuario` INT,
-    `codigo_modalidade` INT,
+    `matricula_usuario` INT NOT NULL,
+    `codigo_modalidade` INT NOT NULL,
     PRIMARY KEY (`matricula_usuario` , `codigo_modalidade`),
     CONSTRAINT FOREIGN KEY (`matricula_usuario`) REFERENCES `Usuario` (`matricula`) ON DELETE CASCADE,
     CONSTRAINT FOREIGN KEY (`codigo_modalidade`) REFERENCES `Modalidade` (`codigo_modalidade`) ON DELETE CASCADE
 ) ENGINE = InnoDB;
 
 CREATE TABLE IF NOT EXISTS `Consulta_Nutri` (
-    `matricula_usuario` INT,
-    `cod_nutri` INT,
+    `matricula_usuario` INT NOT NULL,
+    `cod_nutri` INT NOT NULL,
     `data_hora` DATETIME NOT NULL,
     PRIMARY KEY (`matricula_usuario` , `cod_nutri` , `data_hora`),
     CONSTRAINT FOREIGN KEY (`matricula_usuario`) REFERENCES `Usuario` (`matricula`) ON DELETE CASCADE,
@@ -143,8 +142,8 @@ CREATE TABLE IF NOT EXISTS `Consulta_Nutri` (
 ) ENGINE = InnoDB;
 
 CREATE TABLE IF NOT EXISTS `Consulta_Fisio` (
-    `matricula_usuario` INT,
-    `cod_fisio` INT,
+    `matricula_usuario` INT NOT NULL,
+    `cod_fisio` INT NOT NULL,
     `data_hora` DATETIME NOT NULL,
     PRIMARY KEY (`matricula_usuario` , `cod_fisio` , `data_hora`),
     CONSTRAINT FOREIGN KEY (`matricula_usuario`) REFERENCES `Usuario` (`matricula`) ON DELETE CASCADE,
@@ -152,8 +151,8 @@ CREATE TABLE IF NOT EXISTS `Consulta_Fisio` (
 ) ENGINE = InnoDB;
 
 CREATE TABLE IF NOT EXISTS `Elabora_Treino` (
-    `matricula_usuario` INT,
-    `cod_prof` INT,
+    `matricula_usuario` INT NOT NULL,
+    `cod_prof` INT NOT NULL,
     `data_hora` DATETIME NOT NULL,
     PRIMARY KEY (`matricula_usuario` , `cod_prof` , `data_hora`),
     CONSTRAINT FOREIGN KEY (`matricula_usuario`) REFERENCES `Usuario` (`matricula`) ON DELETE CASCADE,
