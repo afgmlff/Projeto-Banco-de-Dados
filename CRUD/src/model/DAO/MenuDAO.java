@@ -38,6 +38,7 @@ public class MenuDAO extends JPanel implements ActionListener {
     private AdministracaoDAO adao = new AdministracaoDAO();
     private EquipamentoDAO eqdao = new EquipamentoDAO();
     private ReparoDAO rdao = new ReparoDAO();
+    private ModalidadeDAO moddao = new ModalidadeDAO();
 
     public MenuDAO(char op) {
 
@@ -45,7 +46,7 @@ public class MenuDAO extends JPanel implements ActionListener {
 
         String[] tabelas = { "Administração", "Consulta Fisiologista", "Consulta Nutricionista",
                 "Elaboração de Treinos", "Equipamentos", "Estagiários", "Supervisão de Estagiários", "Fisioterapeutas",
-                "Funcionários", "Telefones de funcionários", "Inscrição em modalidades", "Manutenção",
+                "Funcionários", "Telefones de funcionários", "Inscrição em modalidades", "Manutenção", "Modalidades",
                 "Modalidades ministradas", "Nutricionistas", "Professores", "Especialidades de professores",
                 "Reparo de máquinas", "Usuários", "Telefones de usuários" };
 
@@ -191,6 +192,23 @@ public class MenuDAO extends JPanel implements ActionListener {
 
                 case MainMenu.DELECAO:
                     mdao.MenuDeleta();
+                    break;
+
+                default:
+                    break;
+                }
+            } else if (tb.equals("Modalidades")) {
+                switch (op) {
+                case MainMenu.CADASTRO:
+                    moddao.MenuInsere();
+                    break;
+
+                case MainMenu.CONSULTA:
+                    moddao.MenuConsulta();
+                    break;
+
+                case MainMenu.DELECAO:
+                    moddao.MenuDeleta();
                     break;
 
                 default:
