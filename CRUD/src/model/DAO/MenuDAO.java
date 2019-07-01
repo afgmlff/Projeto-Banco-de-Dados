@@ -41,6 +41,7 @@ public class MenuDAO extends JPanel implements ActionListener {
     private ModalidadeDAO moddao = new ModalidadeDAO();
     private Modalidades_MinistradasDAO mmdao = new Modalidades_MinistradasDAO();
     private Estagiario_Eh_SupervisionadoDAO eesdao = new Estagiario_Eh_SupervisionadoDAO();
+    private InscricaoDAO idao = new InscricaoDAO();
 
     public MenuDAO(char op) {
 
@@ -129,21 +130,21 @@ public class MenuDAO extends JPanel implements ActionListener {
                 }
             } else if (tb.equals("Supervisão de Estagiários")) {
                 switch (op) {
-                    case MainMenu.CADASTRO:
-                        eesdao.MenuInsere();
-                        break;
-    
-                    case MainMenu.CONSULTA:
-                        eesdao.MenuConsulta();
-                        break;
-    
-                    case MainMenu.DELECAO:
-                        eesdao.MenuDeleta();
-                        break;
-    
-                    default:
-                        break;
-                    }
+                case MainMenu.CADASTRO:
+                    eesdao.MenuInsere();
+                    break;
+
+                case MainMenu.CONSULTA:
+                    eesdao.MenuConsulta();
+                    break;
+
+                case MainMenu.DELECAO:
+                    eesdao.MenuDeleta();
+                    break;
+
+                default:
+                    break;
+                }
             } else if (tb.equals("Fisioterapeutas")) {
                 switch (op) {
                 case MainMenu.CADASTRO:
@@ -196,7 +197,22 @@ public class MenuDAO extends JPanel implements ActionListener {
                     break;
                 }
             } else if (tb.equals("Inscrição em modalidades")) {
-                //
+                switch (op) {
+                case MainMenu.CADASTRO:
+                    idao.MenuInsere();
+                    break;
+
+                case MainMenu.CONSULTA:
+                    idao.MenuConsulta();
+                    break;
+
+                case MainMenu.DELECAO:
+                    idao.MenuDeleta();
+                    break;
+
+                default:
+                    break;
+                }
             } else if (tb.equals("Manutenção")) {
                 switch (op) {
                 case MainMenu.CADASTRO:

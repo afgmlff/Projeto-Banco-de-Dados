@@ -24,17 +24,16 @@ import javax.swing.JOptionPane;
  */
 
 public class Estagiario_Eh_SupervisionadoDAO {
-    String s = null;
 
-    public void insereEstagiario_Eh_Supervisionado(Estagiario_Eh_Supervisionado m) {
+    public void insereEstagiario_Eh_Supervisionado(Estagiario_Eh_Supervisionado est) {
         Connection con = ConnectionFactory.getConnection();
         PreparedStatement stmt = null;
 
         try {
             stmt = con.prepareStatement(
                     "INSERT INTO `estagiario_eh_supervisionado`(`codigo_estagiario`, `codigo_supervisor`) VALUES (?, ?)");
-            stmt.setInt(1, m.getCodigo_estagiario());
-            stmt.setInt(2, m.getCodigo_supervisor());
+            stmt.setInt(1, est.getCodigo_estagiario());
+            stmt.setInt(2, est.getCodigo_supervisor());
             stmt.executeUpdate();
             System.out.println("Supervisão de estagiário inserida com sucesso!");
         } catch (SQLException ex) {
@@ -105,7 +104,7 @@ public class Estagiario_Eh_SupervisionadoDAO {
                     "DELETE FROM `estagiario_eh_supervisionado` WHERE (`codigo_estagiario`, `codigo_supervisor`) = ("
                             + codigo_estagiario + ", " + codigo_supervisor + ")");
             success = stmt.executeUpdate();
-            System.out.println(success + " suporvisão(ões) de estagiário deletada(s)!");
+            System.out.println(success + " supervisão(ões) de estagiário deletada(s)!");
         } catch (SQLException ex) {
             System.out.println("Erro ao deletar supervisão de estagiário: " + ex.getMessage());
             success = 0;
@@ -118,7 +117,7 @@ public class Estagiario_Eh_SupervisionadoDAO {
 
     public void MenuInsere() {
 
-        Estagiario_Eh_Supervisionado m = new Estagiario_Eh_Supervisionado();
+        Estagiario_Eh_Supervisionado est = new Estagiario_Eh_Supervisionado();
         boolean quitRequested = false;
 
         if (!quitRequested) {
@@ -126,21 +125,21 @@ public class Estagiario_Eh_SupervisionadoDAO {
             if (cod_est == null || cod_est.length() == 0) {
                 quitRequested = true;
             } else {
-                m.setCodigo_estagiario(Integer.parseInt(cod_est));
+                est.setCodigo_estagiario(Integer.parseInt(cod_est));
             }
         }
 
         if (!quitRequested) {
             String cod_super = JOptionPane.showInputDialog("Insira o código do funcionário que o supervisiona");
             if (cod_super != null && cod_super.length() > 0) {
-                m.setCodigo_supervisor(Integer.parseInt(cod_super));
+                est.setCodigo_supervisor(Integer.parseInt(cod_super));
             } else {
                 quitRequested = true;
             }
         }
 
         if (!quitRequested) {
-            insereEstagiario_Eh_Supervisionado(m);
+            insereEstagiario_Eh_Supervisionado(est);
         }
 
     }
