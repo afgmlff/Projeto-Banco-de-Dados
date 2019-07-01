@@ -109,7 +109,7 @@ public class Elabora_TreinoDAO {
                     "DELETE FROM `elabora_treino` WHERE `matricula_usuario` = " + matricula + " AND `cod_prof` = "
                             + codProf + " AND DATE(`data_hora`) LIKE '" + data_consulta.toString() + "%'");
             success = stmt.executeUpdate();
-            System.out.println(success + " elboaração(ões) de treino deletada(s)!");
+            System.out.println(success + " eleboração(ões) de treino deletada(s)!");
         } catch (SQLException ex) {
             System.out.println("Erro deletando elaboração de treino: " + ex.getMessage());
             success = 0;
