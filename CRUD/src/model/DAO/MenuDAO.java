@@ -43,12 +43,13 @@ public class MenuDAO extends JPanel implements ActionListener {
     private Estagiario_Eh_SupervisionadoDAO eesdao = new Estagiario_Eh_SupervisionadoDAO();
     private InscricaoDAO idao = new InscricaoDAO();
     private Consulta_NutriDAO cndao = new Consulta_NutriDAO();
+    private Consulta_FisioDAO cfdao = new Consulta_FisioDAO();
 
     public MenuDAO(char op) {
 
         this.op = op;
 
-        String[] tabelas = { "Administração", "Consulta Fisiologista", "Consulta Nutricionista",
+        String[] tabelas = { "Administração", "Consulta Fisioterapeuta", "Consulta Nutricionista",
                 "Elaboração de Treinos", "Equipamentos", "Estagiários", "Supervisão de Estagiários", "Fisioterapeutas",
                 "Funcionários", "Telefones de funcionários", "Inscrição em modalidades", "Manutenção", "Modalidades",
                 "Modalidades ministradas", "Nutricionistas", "Professores", "Especialidades de professores",
@@ -89,8 +90,23 @@ public class MenuDAO extends JPanel implements ActionListener {
                 default:
                     break;
                 }
-            } else if (tb.equals("Consulta Fisiologista")) {
-                //
+            } else if (tb.equals("Consulta Fisioterapeuta")) {
+                switch (op) {
+                case MainMenu.CADASTRO:
+                    cfdao.MenuInsere();
+                    break;
+
+                case MainMenu.CONSULTA:
+                    cfdao.MenuConsulta();
+                    break;
+
+                case MainMenu.DELECAO:
+                    cfdao.MenuDeleta();
+                    break;
+
+                default:
+                    break;
+                }
             } else if (tb.equals("Consulta Nutricionista")) {
                 switch (op) {
                 case MainMenu.CADASTRO:
