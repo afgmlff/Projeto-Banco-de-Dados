@@ -40,6 +40,7 @@ public class MenuDAO extends JPanel implements ActionListener {
     private ReparoDAO rdao = new ReparoDAO();
     private ModalidadeDAO moddao = new ModalidadeDAO();
     private Modalidades_MinistradasDAO mmdao = new Modalidades_MinistradasDAO();
+    private Estagiario_Eh_SupervisionadoDAO eesdao = new Estagiario_Eh_SupervisionadoDAO();
 
     public MenuDAO(char op) {
 
@@ -127,7 +128,22 @@ public class MenuDAO extends JPanel implements ActionListener {
                     break;
                 }
             } else if (tb.equals("Supervisão de Estagiários")) {
-                //
+                switch (op) {
+                    case MainMenu.CADASTRO:
+                        eesdao.MenuInsere();
+                        break;
+    
+                    case MainMenu.CONSULTA:
+                        eesdao.MenuConsulta();
+                        break;
+    
+                    case MainMenu.DELECAO:
+                        eesdao.MenuDeleta();
+                        break;
+    
+                    default:
+                        break;
+                    }
             } else if (tb.equals("Fisioterapeutas")) {
                 switch (op) {
                 case MainMenu.CADASTRO:
