@@ -39,6 +39,7 @@ public class MenuDAO extends JPanel implements ActionListener {
     private EquipamentoDAO eqdao = new EquipamentoDAO();
     private ReparoDAO rdao = new ReparoDAO();
     private ModalidadeDAO moddao = new ModalidadeDAO();
+    private Modalidades_MinistradasDAO mmdao = new Modalidades_MinistradasDAO();
 
     public MenuDAO(char op) {
 
@@ -215,7 +216,22 @@ public class MenuDAO extends JPanel implements ActionListener {
                     break;
                 }
             } else if (tb.equals("Modalidades ministradas")) {
-                //
+                switch (op) {
+                case MainMenu.CADASTRO:
+                    mmdao.MenuInsere();
+                    break;
+
+                case MainMenu.CONSULTA:
+                    mmdao.MenuConsulta();
+                    break;
+
+                case MainMenu.DELECAO:
+                    mmdao.MenuDeleta();
+                    break;
+
+                default:
+                    break;
+                }
             } else if (tb.equals("Nutricionistas")) {
                 switch (op) {
                 case MainMenu.CADASTRO:
@@ -269,21 +285,21 @@ public class MenuDAO extends JPanel implements ActionListener {
                 }
             } else if (tb.equals("Reparo de máquinas")) {
                 switch (op) {
-                    case MainMenu.CADASTRO:
-                        rdao.MenuInsere();
-                        break;
-    
-                    case MainMenu.CONSULTA:
-                        rdao.MenuConsulta();
-                        break;
-    
-                    case MainMenu.DELECAO:
-                        rdao.MenuDeleta();
-                        break;
-    
-                    default:
-                        break;
-                    }
+                case MainMenu.CADASTRO:
+                    rdao.MenuInsere();
+                    break;
+
+                case MainMenu.CONSULTA:
+                    rdao.MenuConsulta();
+                    break;
+
+                case MainMenu.DELECAO:
+                    rdao.MenuDeleta();
+                    break;
+
+                default:
+                    break;
+                }
             } else if (tb.equals("Usuários")) {
                 switch (op) {
                 case MainMenu.CADASTRO:
