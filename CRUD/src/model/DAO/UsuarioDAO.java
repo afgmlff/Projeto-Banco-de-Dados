@@ -86,7 +86,9 @@ public class UsuarioDAO {
 		List<Usuario> usuarios = new ArrayList<>();
 
 		try {
-			stmt = con.prepareStatement("SELECT `matricula`, `nome`, `endereco`, `data_nascimento`, `data_inicio` FROM `usuario` WHERE `nome` LIKE '%" + nome + "%'");
+			stmt = con.prepareStatement(
+					"SELECT `matricula`, `nome`, `endereco`, `data_nascimento`, `data_inicio` FROM `usuario` WHERE `nome` LIKE '%"
+							+ nome + "%'");
 			rs = stmt.executeQuery();
 
 			while (rs.next()) {
@@ -127,6 +129,26 @@ public class UsuarioDAO {
 		}
 
 		return success;
+	}
+
+	public void atualizaUsuario(Usuario u) {
+		Connection con = ConnectionFactory.getConnection();
+		PreparedStatement stmt = null;
+
+		try {
+			stmt = con.prepareStatement(
+					"UPDATE `usuario` SET `nome` = ?,  `endereco` = ?, `data_nascimento` = ?, `data_inicio` = ?, `foto` = ? WHERE `matricula` = "
+							+ u.getMatricula());
+			stmt.setString(1, u.getNome());
+			stmt.setString(2, u.getEndereco());
+			stmt.setDate(3, u.getData_nascimento());
+			stmt.setDate(4, u.getData_inicio());
+			stmt.setBlob(5, u.getFoto());
+			stmt.executeUpdate();
+			System.out.println("Usuário atualizado!");
+		} catch (SQLException ex) {
+			System.out.println("Erro atualizando usuário: " + ex.getMessage());
+		}
 	}
 
 	public void MenuInsere() {
@@ -302,5 +324,68 @@ public class UsuarioDAO {
 		int x = (int) ((dim.getWidth() - frame.getWidth()) / 2);
 		int y = (int) ((dim.getHeight() - frame.getHeight()) / 2);
 		frame.setLocation(x, y);
+	}
+
+	public void MenuAtualiza() {
+
+		Usuario u = new Usuario();
+		boolean quitRequested = false;
+
+		if (!quitRequested) {
+			String mat = JOptionPane.showInputDialog("Insira a matrícula a atualizar");
+			if (mat != null && mat.length() > 0) {
+				u = buscaMatricula(Integer.parseInt(mat));
+			}
+		}
+
+		if (!quitRequested) {
+			String nome = JOptionPane.showInputDialog("Insira o nome atualizado (ou cancele para manter)");
+			if (nome != null && nome.length() > 0) {
+				u.setNome(nome);
+			}
+		}
+
+		if (!quitRequested) {
+			String data_nascimento = JOptionPane.showInputDialog("Insira a data de nascimento (yyyy-mm-dd) atualizada");
+			Date data = null;
+			if (data_nascimento != null && data_nascimento.length() > 0) {
+				data = Date.valueOf(data_nascimento);
+				u.setData_nascimento(data);
+			}
+		}
+
+		if (!quitRequested) {
+			String data_inicio = JOptionPane
+					.showInputDialog("Insira a data de ingresso na academia (yyyy-mm-dd) atualizada");
+			Date data = null;
+			if (data_inicio != null && data_inicio.length() > 0) {
+				data = Date.valueOf(data_inicio);
+				u.setData_inicio(data);
+			}
+		}
+
+		if (!quitRequested) {
+			String endereco = JOptionPane
+					.showInputDialog("Insira o endereço atualizado do usuário (ou cancele para manter)");
+			if (endereco != null && endereco.length() > 0) {
+				u.setEndereco(endereco);
+			}
+		}
+
+		if (!quitRequested) {
+			s = MenuFoto.criaJanela();
+
+			if (s != null && s.length() > 0) {
+				try {
+					u.setFoto(new SerialBlob(arquivoParaBytes(s)));
+				} catch (SQLException ex) {
+					ex.printStackTrace();
+				}
+			}
+		}
+
+		if (!quitRequested) {
+			atualizaUsuario(u);
+		}
 	}
 }

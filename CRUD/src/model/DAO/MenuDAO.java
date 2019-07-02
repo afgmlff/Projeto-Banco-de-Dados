@@ -88,6 +88,10 @@ public class MenuDAO extends JPanel implements ActionListener {
                     adao.MenuDeleta();
                     break;
 
+                case MainMenu.ATUALIZACAO:
+                    System.out.println("Erro! Não é possível atualizar");
+                    break;
+
                 default:
                     break;
                 }
@@ -103,6 +107,10 @@ public class MenuDAO extends JPanel implements ActionListener {
 
                 case MainMenu.DELECAO:
                     cfdao.MenuDeleta();
+                    break;
+
+                case MainMenu.ATUALIZACAO:
+                    System.out.println("Erro! Não é possível atualizar");
                     break;
 
                 default:
@@ -122,26 +130,34 @@ public class MenuDAO extends JPanel implements ActionListener {
                     cndao.MenuDeleta();
                     break;
 
+                case MainMenu.ATUALIZACAO:
+                    System.out.println("Erro! Não é possível atualizar");
+                    break;
+
                 default:
                     break;
                 }
             } else if (tb.equals("Elaboração de Treinos")) {
                 switch (op) {
-                    case MainMenu.CADASTRO:
-                        etdao.MenuInsere();
-                        break;
-    
-                    case MainMenu.CONSULTA:
-                        etdao.MenuConsulta();
-                        break;
-    
-                    case MainMenu.DELECAO:
-                        etdao.MenuDeleta();
-                        break;
-    
-                    default:
-                        break;
-                    }
+                case MainMenu.CADASTRO:
+                    etdao.MenuInsere();
+                    break;
+
+                case MainMenu.CONSULTA:
+                    etdao.MenuConsulta();
+                    break;
+
+                case MainMenu.DELECAO:
+                    etdao.MenuDeleta();
+                    break;
+
+                case MainMenu.ATUALIZACAO:
+                    System.out.println("Erro! Não é possível atualizar");
+                    break;
+
+                default:
+                    break;
+                }
             } else if (tb.equals("Equipamentos")) {
                 switch (op) {
                 case MainMenu.CADASTRO:
@@ -154,6 +170,10 @@ public class MenuDAO extends JPanel implements ActionListener {
 
                 case MainMenu.DELECAO:
                     eqdao.MenuDeleta();
+                    break;
+
+                case MainMenu.ATUALIZACAO:
+                    System.out.println("Erro! Não é possível atualizar");
                     break;
 
                 default:
@@ -173,6 +193,10 @@ public class MenuDAO extends JPanel implements ActionListener {
                     edao.MenuDeleta();
                     break;
 
+                case MainMenu.ATUALIZACAO:
+                    System.out.println("Erro! Não é possível atualizar");
+                    break;
+
                 default:
                     break;
                 }
@@ -188,6 +212,10 @@ public class MenuDAO extends JPanel implements ActionListener {
 
                 case MainMenu.DELECAO:
                     eesdao.MenuDeleta();
+                    break;
+
+                case MainMenu.ATUALIZACAO:
+                    System.out.println("Erro! Não é possível atualizar");
                     break;
 
                 default:
@@ -207,6 +235,10 @@ public class MenuDAO extends JPanel implements ActionListener {
                     fisdao.MenuDeleta();
                     break;
 
+                case MainMenu.ATUALIZACAO:
+                    System.out.println("Erro! Não é possível atualizar");
+                    break;
+
                 default:
                     break;
                 }
@@ -222,6 +254,10 @@ public class MenuDAO extends JPanel implements ActionListener {
 
                 case MainMenu.DELECAO:
                     fdao.MenuDeleta();
+                    break;
+
+                case MainMenu.ATUALIZACAO:
+                    fdao.MenuAtualiza();
                     break;
 
                 default:
@@ -241,6 +277,10 @@ public class MenuDAO extends JPanel implements ActionListener {
                     ftdao.MenuDeleta();
                     break;
 
+                case MainMenu.ATUALIZACAO:
+                    System.out.println("Erro! Não é possível atualizar");
+                    break;
+
                 default:
                     break;
                 }
@@ -256,6 +296,10 @@ public class MenuDAO extends JPanel implements ActionListener {
 
                 case MainMenu.DELECAO:
                     idao.MenuDeleta();
+                    break;
+
+                case MainMenu.ATUALIZACAO:
+                    System.out.println("Erro! Não é possível atualizar");
                     break;
 
                 default:
@@ -275,6 +319,10 @@ public class MenuDAO extends JPanel implements ActionListener {
                     mdao.MenuDeleta();
                     break;
 
+                case MainMenu.ATUALIZACAO:
+                    System.out.println("Erro! Não é possível atualizar");
+                    break;
+
                 default:
                     break;
                 }
@@ -290,6 +338,10 @@ public class MenuDAO extends JPanel implements ActionListener {
 
                 case MainMenu.DELECAO:
                     moddao.MenuDeleta();
+                    break;
+
+                case MainMenu.ATUALIZACAO:
+                    moddao.MenuAtualiza();
                     break;
 
                 default:
@@ -309,6 +361,10 @@ public class MenuDAO extends JPanel implements ActionListener {
                     mmdao.MenuDeleta();
                     break;
 
+                case MainMenu.ATUALIZACAO:
+                    System.out.println("Erro! Não é possível atualizar");
+                    break;
+
                 default:
                     break;
                 }
@@ -324,6 +380,10 @@ public class MenuDAO extends JPanel implements ActionListener {
 
                 case MainMenu.DELECAO:
                     ndao.MenuDeleta();
+                    break;
+
+                case MainMenu.ATUALIZACAO:
+                    System.out.println("Erro! Não é possível atualizar");
                     break;
 
                 default:
@@ -343,6 +403,10 @@ public class MenuDAO extends JPanel implements ActionListener {
                     pdao.MenuDeleta();
                     break;
 
+                case MainMenu.ATUALIZACAO:
+                    System.out.println("Erro! Não é possível atualizar");
+                    break;
+
                 default:
                     break;
                 }
@@ -358,6 +422,10 @@ public class MenuDAO extends JPanel implements ActionListener {
 
                 case MainMenu.DELECAO:
                     pfdao.MenuDeleta();
+                    break;
+
+                case MainMenu.ATUALIZACAO:
+                    System.out.println("Erro! Não é possível atualizar");
                     break;
 
                 default:
@@ -377,6 +445,10 @@ public class MenuDAO extends JPanel implements ActionListener {
                     rdao.MenuDeleta();
                     break;
 
+                case MainMenu.ATUALIZACAO:
+                    System.out.println("Erro! Não é possível atualizar");
+                    break;
+
                 default:
                     break;
                 }
@@ -394,6 +466,10 @@ public class MenuDAO extends JPanel implements ActionListener {
                     udao.MenuDeleta();
                     break;
 
+                case MainMenu.ATUALIZACAO:
+                    udao.MenuAtualiza();
+                    break;
+
                 default:
                     break;
                 }
@@ -409,6 +485,10 @@ public class MenuDAO extends JPanel implements ActionListener {
 
                 case MainMenu.DELECAO:
                     utdao.MenuDeleta();
+                    break;
+
+                case MainMenu.ATUALIZACAO:
+                    System.out.println("Erro! Não é possível atualizar");
                     break;
 
                 default:

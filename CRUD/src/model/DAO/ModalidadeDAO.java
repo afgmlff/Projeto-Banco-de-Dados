@@ -119,6 +119,25 @@ public class ModalidadeDAO {
         return success;
     }
 
+    public void atualizaModalidade(Modalidade mod) {
+        Connection con = ConnectionFactory.getConnection();
+        PreparedStatement stmt = null;
+
+        try {
+            stmt = con.prepareStatement(
+                    "UPDATE `modalidade` SET `nome` = ?,  `descricao` = ?, `dias` = ?, `horarios` = ? WHERE `codigo_modalidade` = "
+                            + mod.getCodigo_modalidade());
+            stmt.setString(1, mod.getNome());
+            stmt.setString(2, mod.getDescricao());
+            stmt.setString(3, mod.getDias());
+            stmt.setString(4, mod.getHorarios());
+            stmt.executeUpdate();
+            System.out.println("Modalidade atualizada!");
+        } catch (SQLException ex) {
+            System.out.println("Erro atualizando modalidade: " + ex.getMessage());
+        }
+    }
+
     public void MenuInsere() {
 
         Modalidade m = new Modalidade();
@@ -235,5 +254,50 @@ public class ModalidadeDAO {
         int x = (int) ((dim.getWidth() - frame.getWidth()) / 2);
         int y = (int) ((dim.getHeight() - frame.getHeight()) / 2);
         frame.setLocation(x, y);
+    }
+
+    public void MenuAtualiza() {
+
+        Modalidade mod = new Modalidade();
+        boolean quitRequested = false;
+
+        if (!quitRequested) {
+            String cod = JOptionPane.showInputDialog("Insira o código da modalidade a atualizar");
+            if (cod != null && cod.length() > 0) {
+                mod = buscaCodigo(Integer.parseInt(cod));
+            }
+        }
+
+        if (!quitRequested) {
+            String nome = JOptionPane.showInputDialog("Insira o nome atualizado (ou cancele para manter)");
+            if (nome != null && nome.length() > 0) {
+                mod.setNome(nome);
+            }
+        }
+
+        if (!quitRequested) {
+            String descri = JOptionPane.showInputDialog("Insira a descrição atualizada (ou cancele para manter)");
+            if (descri != null && descri.length() > 0) {
+                mod.setDescricao(descri);
+            }
+        }
+
+        if (!quitRequested) {
+            String dias = JOptionPane.showInputDialog("Insira os dias atualizados (ou cancele para manter)");
+            if (dias != null && dias.length() > 0) {
+                mod.setDias(dias);
+            }
+        }
+
+        if (!quitRequested) {
+            String horarios = JOptionPane.showInputDialog("Insira os horários atualizados (ou cancele para manter)");
+            if (horarios != null && horarios.length() > 0) {
+                mod.setHorarios(horarios);
+            }
+        }
+
+        if (!quitRequested) {
+            atualizaModalidade(mod);
+        }
     }
 }

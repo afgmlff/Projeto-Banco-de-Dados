@@ -112,6 +112,23 @@ public class FuncionarioDAO {
         return success;
     }
 
+    public void atualizaFuncionario(Funcionario f) {
+        Connection con = ConnectionFactory.getConnection();
+        PreparedStatement stmt = null;
+
+        try {
+            stmt = con.prepareStatement(
+                    "UPDATE `funcionario` SET `nome` = ?,  `endereco` = ? WHERE `registro_funcionario` = "
+                            + f.getRegistro_funcionario());
+            stmt.setString(1, f.getNome());
+            stmt.setString(2, f.getEndereco());
+            stmt.executeUpdate();
+            System.out.println("Funcionário atualizado!");
+        } catch (SQLException ex) {
+            System.out.println("Erro atualizando funcionário: " + ex.getMessage());
+        }
+    }
+
     public void MenuInsere() {
 
         Funcionario fun = new Funcionario();
@@ -211,5 +228,37 @@ public class FuncionarioDAO {
         int x = (int) ((dim.getWidth() - frame.getWidth()) / 2);
         int y = (int) ((dim.getHeight() - frame.getHeight()) / 2);
         frame.setLocation(x, y);
+    }
+
+    public void MenuAtualiza() {
+
+        Funcionario func = new Funcionario();
+        boolean quitRequested = false;
+
+        if (!quitRequested) {
+            String mat = JOptionPane.showInputDialog("Insira o registro do funcionário a atualizar");
+            if (mat != null && mat.length() > 0) {
+                func = buscaRegistro(Integer.parseInt(mat));
+            }
+        }
+
+        if (!quitRequested) {
+            String nome = JOptionPane.showInputDialog("Insira o nome atualizado (ou cancele para manter)");
+            if (nome != null && nome.length() > 0) {
+                func.setNome(nome);
+            }
+        }
+
+        if (!quitRequested) {
+            String endereco = JOptionPane
+                    .showInputDialog("Insira o endereço atualizado do funcionário (ou cancele para manter)");
+            if (endereco != null && endereco.length() > 0) {
+                func.setEndereco(endereco);
+            }
+        }
+
+        if (!quitRequested) {
+            atualizaFuncionario(func);
+        }
     }
 }

@@ -15,8 +15,8 @@ import model.DAO.MenuDAO;
 public class MainMenu extends JPanel implements ActionListener {
 
 	private static final long serialVersionUID = 1L;
-	public static final char CADASTRO = 'k', CONSULTA = 'c', DELECAO = 'd';
-	protected JButton b1, b2, b3;
+	public static final char CADASTRO = 'k', CONSULTA = 'c', DELECAO = 'd', ATUALIZACAO = 'a';
+	protected JButton b1, b2, b3, b4;
 	protected char op;
 
 	public MainMenu() {
@@ -29,14 +29,19 @@ public class MainMenu extends JPanel implements ActionListener {
 		b3 = new JButton("Deletar");
 		b3.setActionCommand("delecao");
 		b3.setMnemonic(KeyEvent.VK_D);
-
+		b4 = new JButton("Atualizar");
+		b4.setActionCommand("atualizacao");
+		b4.setMnemonic(KeyEvent.VK_A);
+		
 		b1.addActionListener(this);
 		b2.addActionListener(this);
 		b3.addActionListener(this);
+		b4.addActionListener(this);
 
 		add(b1);
 		add(b2);
 		add(b3);
+		add(b4);
 	}
 
 	public void actionPerformed(ActionEvent e) {
@@ -46,6 +51,8 @@ public class MainMenu extends JPanel implements ActionListener {
 			MenuDAO.criaJanela(CONSULTA);
 		} else if ("delecao".equals(e.getActionCommand())) {
 			MenuDAO.criaJanela(DELECAO);
+		} else if("atualizacao".equals(e.getActionCommand())) {
+			MenuDAO.criaJanela(ATUALIZACAO);
 		}
 	}
 
