@@ -15,10 +15,10 @@ begin
 
     CASE  op
     
-		WHEN 0 THEN select funcionario.nome from nutricionista join funcionario on
+	WHEN 0 THEN select funcionario.nome from nutricionista join funcionario on
 			(nutricionista.codigo_funcionario = funcionario.registro_funcionario);
             
-		WHEN 1 THEN select funcionario.nome from manutencao join funcionario on
+	WHEN 1 THEN select funcionario.nome from manutencao join funcionario on
 			(manutencao.codigo_funcionario = funcionario.registro_funcionario);
             
         WHEN 2 THEN select funcionario.nome from estagiario join funcionario on
@@ -38,6 +38,8 @@ begin
   end $$
 
 delimiter ;
+
+CALL Funcionarios3(0); /* Exemplo para a análise do nome dos funcionários nutricionistas*/
 
 /* Para chamar a procedure:
    CALL Funcionarios3(op);,
