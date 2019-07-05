@@ -1,3 +1,5 @@
+USE `academia`;
+
 INSERT INTO `Usuario`
 VALUES (DEFAULT, 'flavio', 'octogonal', '1997-09-17', '2018-09-17', 'blobbbb');
 

@@ -9,33 +9,33 @@
 
 delimiter $$
 
-create procedure Funcionarios3(in op integer)
+CREATE PROCEDURE Funcionarios3(IN op INTEGER)
 
-begin
+BEGIN
 
     CASE  op
     
-	WHEN 0 THEN select funcionario.nome from nutricionista join funcionario on
+	WHEN 0 THEN SELECT funcionario.nome FROM nutricionista JOIN funcionario ON
 			(nutricionista.codigo_funcionario = funcionario.registro_funcionario);
             
-	WHEN 1 THEN select funcionario.nome from manutencao join funcionario on
+	WHEN 1 THEN SELECT funcionario.nome FROM manutencao JOIN funcionario ON
 			(manutencao.codigo_funcionario = funcionario.registro_funcionario);
             
-        WHEN 2 THEN select funcionario.nome from estagiario join funcionario on
+        WHEN 2 THEN SELECT funcionario.nome FROM estagiario JOIN funcionario ON
 			(estagiario.codigo_funcionario = funcionario.registro_funcionario);
             
-        WHEN 3 THEN select funcionario.nome from professor join funcionario on
+        WHEN 3 THEN SELECT funcionario.nome FROM professor JOIN funcionario ON
 			(professor.codigo_funcionario = funcionario.registro_funcionario);
             
-        WHEN 4 THEN select funcionario.nome from administracao join funcionario on
+        WHEN 4 THEN SELECT funcionario.nome FROM administracao JOIN funcionario ON
 			(administracao.codigo_funcionario = funcionario.registro_funcionario);
             
-        WHEN 5 THEN select funcionario.nome from fisioterapeuta join funcionario on
+        WHEN 5 THEN SELECT funcionario.nome FROM fisioterapeuta JOIN funcionario ON
 			(fisioterapeuta.codigo_funcionario = funcionario.registro_funcionario);
 	
-    end CASE;
+    END CASE;
 
-  end $$
+  END $$
 
 delimiter ;
 
