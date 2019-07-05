@@ -1,0 +1,45 @@
+/*De acordo com uma entrada de 0 a 5, a função lista o nome de todos os funcionários listados na profissão a partir de:
+0 -> nutricionistas
+1 -> manutenção 
+2 -> estagiarios 
+3 -> professores
+4 -> administração
+5 -> fisioterapeutas
+*/
+
+delimiter $$
+
+create procedure Funcionarios3(in op integer)
+
+begin
+
+    CASE  op
+    
+		WHEN 0 THEN select funcionario.nome from nutricionista join funcionario on
+			(nutricionista.codigo_funcionario = funcionario.registro_funcionario);
+            
+		WHEN 1 THEN select funcionario.nome from manutencao join funcionario on
+			(manutencao.codigo_funcionario = funcionario.registro_funcionario);
+            
+        WHEN 2 THEN select funcionario.nome from estagiario join funcionario on
+			(estagiario.codigo_funcionario = funcionario.registro_funcionario);
+            
+        WHEN 3 THEN select funcionario.nome from professor join funcionario on
+			(professor.codigo_funcionario = funcionario.registro_funcionario);
+            
+        WHEN 4 THEN select funcionario.nome from administracao join funcionario on
+			(administracao.codigo_funcionario = funcionario.registro_funcionario);
+            
+        WHEN 5 THEN select funcionario.nome from fisioterapeuta join funcionario on
+			(fisioterapeuta.codigo_funcionario = funcionario.registro_funcionario);
+	
+    end CASE;
+
+  end $$
+
+delimiter ;
+
+/* Para chamar a procedure:
+   CALL Funcionarios3(op);,
+   sendo 'op' um inteiro de 0 a 5.   
+*/
